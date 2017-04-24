@@ -1,86 +1,81 @@
-# react-redux-ab
+# react-thumbor-img
 
-**react-redux-ab** is a simple A/B testing library that stores the active variants in a reducer for easy access accross the whole application. It is universal, as it can run on the client side, browser side or any kind of application where redux can run.
+You like React? But you use Thumbor?
 
-[API docs](docs/API.md)
+Worry not, because you have now found the perfect library to use both together in a nice simple component. It currently handles only unsafe URLs, as safe URLs cannot be generated in the client side.
 
-Compared to prior libraries (such as [](), it offers the following advantages:
-- The availability in the store by default makes it possible to have one experiment with effects in several places in the application, even widely separated.
-- Ability to A/B test not only visual elements but also anything that has access to the store. You can for instance A/B test async action creators for speed tests.
-- Weighted variants out of the box. You can create an experiment with 4 variants but decide that one will be used by 60% of the traffic, one by 20% and the remaining two by 10% each.
+## Usage
 
-## Basic client side use case
-
-1. Create experiments and add them to the root reducer:
-
-```javascript
-import { combineReducers } from 'redux'
-import { createExperiments } from 'react-redux-ab'
-
-const rootReducer = combineReducers({
-	/* Your stuff here */
-	experiments: createExperiment(sb{
-		'buttons': {
-			variants: [
-				{name: 'blue'},
-				{name: 'red', weight: 5}
-			]
-		},
-		'callToAction': {
-			variants: [
-				{name: 'original'},
-				{name: 'suggestion1'},
-				{name: 'suggestion2'}
-			]
-		}
-	})
-})
-```
-
-2. Load them from the cookies at laod time (use any cookie library you want, we love [js-cookie](https://github.com/js-cookie/js-cookie) but you can use any other function that returns a dictionnaries of all key/values in the cookies:
-
-```javascript
-import { createStore } from 'redux'
-import { digestCookies } from 'react-redux-ab'
-import Cookies from 'js-cookie'
-import rootReducer from './reducer'
-
-const initalState = {
-	experiments: digestCookies(Cookies.get())
-}
-const store = createStore(rootReducer, initialState)
-```
-
-3. Connect the cookie updater to the store:
-
-```javascript
-import { backeCookies } from 'react-redux-ab'
-import Cookies from 'js-cookie'
-store.subscribe(() => {
-	bakeCookies(store.getState(), Cookies.set)
-})
-```
-
-
-4. Use experiments in your components:
+Usage is simple, very simple:
 
 ```jsx
 import React from 'react'
-import { Experiment, Variant } from 'react-redux-ab'
+import { ThumborImage } from 'react-thumbor-img'
 
-export default function MyApp (props) {
-	return <Experiment name="callToAction">
-			<Variant name="original">
-				<button>Boring button</button>
-			</Variant>
-			<Variant name="suggestion2">
-				<a href="#">Awesome link</a>
-			</Variant>
-		</Experiment>
+function MyAwesomeSection(props) {
+	return <section>
+			<ThumborImage
+				server='http://mythumborserver.com'
+				uri='http://imagestorage/imageurl.jpg'
+				height={200}
+				width={300}
+			/>
+		</section>
 }
+
 ```
 
-## Recipes
-- [Use react-redux-ab on the server side](docs/recipes/serverside.md)
+## Properties for ThumborImage
 
-Check out more details on parameters and possibilities in the [API docs](docs/API.md)
+**server(required)**: URL of your thumbor server
+
+**uri(required)**: URI of the original picture
+
+**generateSrcSet**: If `true`, will generate a `srcset` attribute for the image that will contain 2x and 3x versions of the picture automatically. 
+*default: true*
+
+**width**: width in pixel for the standard size of the picture. Use **0** to indicate it should be automatic (original size, or proportional to the height respecting the ratio).
+*default: 0*
+
+**height**: height in pixel for the standard size of the picture. Use **0** to indicate it should be automatic (original size, or proportional to the width respecting the ratio).
+*default: 0*
+
+**flipHorizontal**: set to `true` if you want to flip the image horizontally
+*default: false*
+
+**flipVertical**: set to `true` if you want to flip the image vertical
+*default: false*
+
+**trim**: set to `true` if you want to remove the surrounding space (see [here](http://thumbor.readthedocs.io/en/latest/usage.html#trim))
+*default: false*
+
+**trim**: set to `true` if you want to shrink the image instead of auto-crop it (see [here](http://thumbor.readthedocs.io/en/latest/usage.html#fit-in))
+*default: false*
+
+**manualCrop**: If you want to manually crop the image to a certain position, set this property to an object `{top: y1, left: x1, bottom: y2, right: x2}`. Set to `false` for no manual cropping.
+*default: false*
+
+**horizontalAlign**: see [here](http://thumbor.readthedocs.io/en/latest/usage.html#horizontal-align)
+*default: 'center'*
+
+**verticalAlign**: see [here](http://thumbor.readthedocs.io/en/latest/usage.html#vertical-align)
+*default: 'middle'*
+
+**smart**: set this to `false` to disable the smart detection of focal points. See [here](http://thumbor.readthedocs.io/en/latest/usage.html#smart-cropping) for more details.
+*default: true*
+
+**filters**: An object which keys correspond to the filter names as defined in the [documentation](http://thumbor.readthedocs.io/en/latest/filters.html), and values are either:
+- `true` when no argument is needed for the filter
+- a single value when the filter takes only one argument
+- an array of values corresponding to the parameters to be passed in the right order
+*default: {}*
+
+**Example:**
+```javascript
+const filters = {
+	grayscake: true,
+	background_color: 'blue',
+	rgb: [20, 50, 60],
+	blur: 7
+}
+```
