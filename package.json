@@ -1,0 +1,41 @@
+{
+  "name": "react-thumbor-img",
+  "keywords": [
+    "react",
+    "thumbor",
+    "image"
+  ],
+  "version": "1.0.0",
+  "description": "A React Component that generates images with valid Thumbor URLs for you.",
+  "main": "build/react-thumbor-img.js",
+  "jsnext:main": "build/react-thumbor-img.es2015.js",
+  "repository": "ytase/react-thumbor-img",
+  "bugs": {
+    "url": "https://github.com/ytase/react-thumbor-img/issues"
+  },
+  "homepage": "https://github.com/ytase/react-thumbor-img#readme",
+  "author": "Mikaël Gourlaouen <gourlaouen.mikael@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "mocha --compilers js:babel-register",
+    "build:modern": "rollup -c",
+    "build:legacy": "rollup -c rollup.config.legacy.js",
+    "build": "npm run build:modern && npm run build:legacy",
+    "prepublish": "npm run test && npm run build"
+  },
+  "peerDependencies": {
+    "react": "^15.5"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-latest": "^6.22.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-register": "^6.18.0",
+    "enzyme": "^2.6.0",
+    "mocha": "^3.2.0",
+    "react": "^15.5.3",
+    "rollup": "^0.36.4",
+    "rollup-plugin-babel": "^2.7.1"
+  }
+}
