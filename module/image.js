@@ -1,6 +1,6 @@
 import React from 'react'
 import { thumborURL } from './urlgenerator'
-import { generateSrcSet as compileSrcSet } from '/utils'
+import { generateSrcSet as compileSrcSet } from './utils'
 
 function ThumborImage(props) {
 	const { 
