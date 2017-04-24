@@ -74,9 +74,10 @@ describe('Thumbor URL', () => {
 		assert.equal(
 			thumborURL(addParams({filters: {
 				fill: 'blue',
-				rgb: [20, 10 , 40]
+				rgb: [20, 10 , 40],
+				grayscale: true
 			}})),
-			'http://myserver.com/unsafe/0x0/center/middle/filters:fill(blue):rgb(20,10,40)/http://otherserver/img.jpg'
+			'http://myserver.com/unsafe/0x0/center/middle/filters:fill(blue):rgb(20,10,40):grayscale()/http://otherserver/img.jpg'
 		)
 	})
 })

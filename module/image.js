@@ -24,7 +24,7 @@ ThumborImage.defaultProps = {
 	height: 0,
 	flipHorizontal: false,
 	flipVertical: false,
-	trim: true,
+	trim: false,
 	fitIn: false,
 	manualCrop: false,
 	horizontalAlign: 'center',

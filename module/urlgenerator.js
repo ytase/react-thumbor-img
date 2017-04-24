@@ -13,6 +13,11 @@ function filtersURIComponent(filters) {
 			if (Array.isArray(parameters)) {
 				stringParameters = parameters.join(',')
 			}
+			// If true, we don't even need to do anything, we just have an empty string and insert ()
+			// Ex: {grayscale: true} => grayscale()
+			else if (parameters === true) {
+				stringParameters = ''
+			}
 			else {
 				stringParameters = String(parameters)
 			}
