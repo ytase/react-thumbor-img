@@ -16,7 +16,7 @@ function MyAwesomeSection(props) {
 	return <section>
 			<ThumborImage
 				server='http://mythumborserver.com'
-				uri='http://imagestorage/imageurl.jpg'
+				src='http://imagestorage/imageurl.jpg'
 				height={200}
 				width={300}
 			/>
@@ -29,7 +29,7 @@ function MyAwesomeSection(props) {
 
 **server(required)**: URL of your thumbor server
 
-**uri(required)**: URI of the original picture
+**src(required)**: URI of the original picture
 
 **generateSrcSet**: If `true`, will generate a `srcset` attribute for the image that will contain 2x and 3x versions of the picture automatically. 
 *default: true*

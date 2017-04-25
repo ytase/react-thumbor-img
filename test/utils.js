@@ -2,7 +2,7 @@ import { thumborURL } from '../module/urlgenerator'
 
 const basicInput = {
 	server: 'http://myserver.com',
-	uri: 'http://otherserver/img.jpg',
+	src: 'http://otherserver/img.jpg',
 	width: 0,
 	height: 0,
 	flipHorizontal: false,

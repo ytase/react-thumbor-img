@@ -29,7 +29,7 @@ function filtersURIComponent(filters) {
 
 function thumborURL({
 	server,
-	uri,
+	src,
 	width,
 	height,
 	flipHorizontal,
@@ -80,7 +80,7 @@ function thumborURL({
 	Object.keys(filters).length > 0 && urlComponents.push(filtersURIComponent(filters))
 
 	// Finally, adds the real image uri
-	urlComponents.push(uri)
+	urlComponents.push(src)
 
 	const url = urlComponents.join('/')
 	return url

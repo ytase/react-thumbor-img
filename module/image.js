@@ -19,7 +19,7 @@ function ThumborImage(props) {
 ThumborImage.defaultProps = {
 	imgProps: {},
 	server: null,
-	uri: null,
+	src: null,
 	width: 0,
 	height: 0,
 	flipHorizontal: false,
