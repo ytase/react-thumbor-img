@@ -4,11 +4,23 @@ import { generateSrcSet as compileSrcSet } from './utils'
 
 function ThumborImage(props) {
 	const { 
-		imgProps,
 		generateSrcSet,
+		width,
+		height,
 	} = props
+	const imgProps = Object.assign({}, props.imgProps)
+
+	// Adds the sourceset if the option was chosen
 	if (generateSrcSet) {
 		imgProps.srcSet = compileSrcSet(props)
+	}
+
+	// Adds the width and heights in case they are set, for styling reasons
+	if (Math.abs(width) > 1) {
+		imgProps.width = Math.abs(width)
+	}
+	if (Math.abs(height) > 1) {
+		imgProps.height = Math.abs(height)
 	}
 	return <img
 			src={ thumborURL(props) }
