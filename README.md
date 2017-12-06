@@ -49,7 +49,7 @@ function MyAwesomeSection(props) {
 **trim**: set to `true` if you want to remove the surrounding space (see [here](http://thumbor.readthedocs.io/en/latest/usage.html#trim))
 *default: false*
 
-**trim**: set to `true` if you want to shrink the image instead of auto-crop it (see [here](http://thumbor.readthedocs.io/en/latest/usage.html#fit-in))
+**fitIn**: set to `true` if you want to shrink the image instead of auto-crop it (see [here](http://thumbor.readthedocs.io/en/latest/usage.html#fit-in))
 *default: false*
 
 **manualCrop**: If you want to manually crop the image to a certain position, set this property to an object `{top: y1, left: x1, bottom: y2, right: x2}`. Set to `false` for no manual cropping.
