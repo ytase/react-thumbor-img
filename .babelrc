@@ -1,3 +1,5 @@
 {
-  "presets": ["latest", "react"]
+  "presets": [
+    "env", "react"
+  ]
 }

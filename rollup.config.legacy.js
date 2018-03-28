@@ -1,23 +1,23 @@
 import babel from 'rollup-plugin-babel'
 
 export default {
-	entry: 'module/index.js',
-	format: 'cjs',
+	input: 'module/index.js',
 	plugins: [
 		babel({
 			babelrc: false,
 			presets: [
 				[
-					"latest", 
-					{"es2015": 
-						{"modules": false}
-					}
+					"env",
+					{ "modules": false }
 				],
 				"react"
-			
 			],
 			plugins: ["external-helpers"]
 		})
 	],
-	dest: 'build/react-thumbor-img.js'
+	output: {
+		file: 'build/react-thumbor-img.js',
+		format: 'cjs'
+	},
+	external: ['react']
 }

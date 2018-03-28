@@ -3,6 +3,11 @@ import assert from 'assert'
 import { shallow } from 'enzyme'
 import { ThumborImage } from '../module/image'
 
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+Enzyme.configure({ adapter: new Adapter() });
+
 
 describe('thumbor image component', () => {
 	it('should set height and width when present', () => {

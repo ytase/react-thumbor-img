@@ -5,7 +5,7 @@
     "thumbor",
     "image"
   ],
-  "version": "2.1.0",
+  "version": "2.2.1",
   "description": "A React Component that generates images with valid Thumbor URLs for you.",
   "main": "build/react-thumbor-img.js",
   "jsnext:main": "build/react-thumbor-img.es2015.js",
@@ -17,27 +17,27 @@
   "author": "Mikaël Gourlaouen <gourlaouen.mikael@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "mocha --compilers js:babel-register",
+    "test": "BABEL_ENV=test mocha --require babel-core/register",
     "build:modern": "rollup -c",
     "build:legacy": "rollup -c rollup.config.legacy.js",
     "build": "npm run build:modern && npm run build:legacy",
-    "prepublish": "npm run test && npm run build"
+    "prepare": "npm run test && npm run build"
   },
   "peerDependencies": {
-    "react": "^15.5"
+    "react": "^16.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.22.2",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
     "babel-plugin-external-helpers": "^6.22.0",
-    "babel-preset-latest": "^6.22.0",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.16.0",
-    "babel-register": "^6.18.0",
-    "enzyme": "^2.8.2",
-    "mocha": "^3.2.0",
-    "react": "^15.5.3",
-    "react-addons-test-utils": "^15.5.1",
-    "react-dom": "^15.5.4",
-    "rollup": "^0.36.4",
-    "rollup-plugin-babel": "^2.7.1"
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "mocha": "^5.0.5",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "rollup": "^0.57.1",
+    "rollup-plugin-babel": "^3.0.3"
   }
 }
