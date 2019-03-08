@@ -16,6 +16,11 @@ describe('thumbor image component', () => {
 		assert(wrapper.is('img[height=30]'))
 	})
 
+	it('should set className when present', () => {
+		const wrapper = shallow(<ThumborImage src="/my-image" server="localhost" width={20} height={30} className="some_class"/>)
+		assert(wrapper.find('img').hasClass('some_class') == true)
+	})
+
 	it('should not set height or width when not present or 0', () => {
 		const notPresent = shallow(<ThumborImage src="/my-image" server="localhost" />)
 		assert(!notPresent.props().hasOwnProperty('height'))
