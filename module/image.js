@@ -3,12 +3,17 @@ import { thumborURL } from './urlgenerator'
 import { generateSrcSet as compileSrcSet } from './utils'
 
 function ThumborImage(props) {
-	const { 
+	const {
 		generateSrcSet,
 		width,
 		height,
+		id,
+		className,
+		style,
+		alt,
+		crossOrigin
 	} = props
-	const imgProps = Object.assign({}, props.imgProps)
+	const imgProps = Object.assign({id, className, style, alt, crossOrigin}, props.imgProps)
 
 	// Adds the sourceset if the option was chosen
 	if (generateSrcSet) {
