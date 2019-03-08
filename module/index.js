@@ -1,1 +1,2 @@
-export { ThumborImage } from './image'
+export { ThumborImage } from "./image";
+export { thumborURL } from "./urlgenerator";
