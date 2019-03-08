@@ -24,7 +24,6 @@ function MyAwesomeSection(props) {
 }
 
 ```
-
 ## Properties for ThumborImage
 
 **server(required)**: URL of your thumbor server
@@ -79,3 +78,7 @@ const filters = {
 	blur: 7
 }
 ```
+
+## Other Image Properties
+
+**id, className, style, alt, crossOrigin**: are possible to send and apply to the image
