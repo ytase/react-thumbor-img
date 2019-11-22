@@ -1,22 +1,15 @@
-import babel from 'rollup-plugin-babel'
+import ts from "@wessberg/rollup-plugin-ts"
 
 export default {
-	input: 'module/index.js',
+	input: 'module/index.ts',
 	plugins: [
-		babel({
-			babelrc: false,
-			presets: [
-				[
-					"env",
-					{ "modules": false }
-				],
-				"react"
-			],
-			plugins: ["external-helpers"]
+		ts({
+			transpiler: 'typescript',
+			include: "./module/**/*"
 		})
 	],
 	output: {
-		file: 'build/react-thumbor-img.es2015.js',
+		file: 'build/react-thumbor-img.js',
 		format: 'es'
 	},
 	external: ['react']

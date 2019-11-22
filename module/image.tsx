@@ -1,8 +1,9 @@
 import React from 'react'
 import { thumborURL } from './urlgenerator'
 import { generateSrcSet as compileSrcSet } from './utils'
+import { ThumborImageProps } from './types'
 
-function ThumborImage(props) {
+function ThumborImage(props: ThumborImageProps) {
 	const {
 		generateSrcSet,
 		width,
@@ -11,9 +12,8 @@ function ThumborImage(props) {
 		className,
 		style,
 		alt,
-		crossOrigin
 	} = props
-	const imgProps = Object.assign({id, className, style, alt, crossOrigin}, props.imgProps)
+	const imgProps = Object.assign({id, className, style, alt}, props.imgProps)
 
 	// Adds the sourceset if the option was chosen
 	if (generateSrcSet) {

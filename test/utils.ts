@@ -1,6 +1,7 @@
 import { thumborURL } from '../module/urlgenerator'
+import { TbImg } from '../module/types'
 
-const basicInput = {
+const basicInput: TbImg = {
 	server: 'http://myserver.com',
 	src: 'http://otherserver/img.jpg',
 	width: 0,
@@ -17,7 +18,7 @@ const basicInput = {
 }
 
 
-function addParams(params) {
+function addParams(params: Partial<TbImg>): TbImg {
 	return Object.assign({}, basicInput, params)
 }
 

@@ -1,8 +1,10 @@
-function cropSection(c) {
+import {Box, FilterDict, TbImg } from './types'
+
+function cropSection(c: Box) {
 	return `${c.left}x${c.top}:${c.right}x${c.bottom}`
 }
 
-function filtersURIComponent(filters) {
+function filtersURIComponent(filters: FilterDict) {
 	const elements = ['filters']
 	for (let name in filters) {
 		if (filters.hasOwnProperty(name)) {
@@ -41,7 +43,7 @@ function thumborURL({
 	smart,
 	filters,
 	manualCrop,
-}) {
+}: TbImg) {
 	const urlComponents = [server, 'unsafe']
 	
 	// Add the trim parameter after unsafe if appliable

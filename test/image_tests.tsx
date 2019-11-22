@@ -3,10 +3,10 @@ import assert from 'assert'
 import { shallow } from 'enzyme'
 import { ThumborImage } from '../module/image'
 
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { configure } from 'enzyme';
+import ReactSixteenAdapter from 'enzyme-adapter-react-16';
 
-Enzyme.configure({ adapter: new Adapter() });
+configure({ adapter: new ReactSixteenAdapter() });
 
 
 describe('thumbor image component', () => {
