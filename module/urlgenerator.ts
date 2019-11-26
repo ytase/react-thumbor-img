@@ -1,91 +1,91 @@
-import {Box, FilterDict, TbImg } from './types'
+import { Box, FilterDict, TbImg } from "./types";
 
 function cropSection(c: Box) {
-	return `${c.left}x${c.top}:${c.right}x${c.bottom}`
+  return `${c.left}x${c.top}:${c.right}x${c.bottom}`;
 }
 
 function filtersURIComponent(filters: FilterDict) {
-	const elements = ['filters']
-	for (let name in filters) {
-		if (filters.hasOwnProperty(name)) {
-			const parameters = filters[name]
-			let stringParameters
-			// If we have several parameters, they were passed as an array 
-			// and now they need to be comma separated, otherwise there is just one to convert to a string
-			if (Array.isArray(parameters)) {
-				stringParameters = parameters.join(',')
-			}
-			// If true, we don't even need to do anything, we just have an empty string and insert ()
-			// Ex: {grayscale: true} => grayscale()
-			else if (parameters === true) {
-				stringParameters = ''
-			}
-			else {
-				stringParameters = String(parameters)
-			}
-			elements.push(`${name}(${stringParameters})`)
-		}
-	}
-	return elements.join(':')
+  const elements = ["filters"];
+  for (let name in filters) {
+    if (filters.hasOwnProperty(name)) {
+      const parameters = filters[name];
+      let stringParameters;
+      // If we have several parameters, they were passed as an array
+      // and now they need to be comma separated, otherwise there is just one to convert to a string
+      if (Array.isArray(parameters)) {
+        stringParameters = parameters.join(",");
+      }
+      // If true, we don't even need to do anything, we just have an empty string and insert ()
+      // Ex: {grayscale: true} => grayscale()
+      else if (parameters === true) {
+        stringParameters = "";
+      } else {
+        stringParameters = String(parameters);
+      }
+      elements.push(`${name}(${stringParameters})`);
+    }
+  }
+  return elements.join(":");
 }
 
 function thumborURL({
-	server,
-	src,
-	width,
-	height,
-	flipHorizontal,
-	flipVertical,
-	trim,
-	fitIn,
-	horizontalAlign,
-	verticalAlign,
-	smart,
-	filters,
-	manualCrop,
+  server,
+  src,
+  width,
+  height,
+  flipHorizontal,
+  flipVertical,
+  trim,
+  fitIn,
+  horizontalAlign,
+  verticalAlign,
+  smart,
+  filters,
+  manualCrop
 }: TbImg) {
-	const urlComponents = [server, 'unsafe']
-	
-	// Add the trim parameter after unsafe if appliable
-	trim && urlComponents.push('trim')
+  const urlComponents = [server, "unsafe"];
 
-	// Add the crop parameter if any
-	manualCrop && urlComponents.push(cropSection(manualCrop))
+  // Add the trim parameter after unsafe if appliable
+  trim && urlComponents.push("trim");
 
-	// Add the fit-in parameter after crop if appliable
-	fitIn && urlComponents.push('fit-in')
+  // Add the crop parameter if any
+  manualCrop && urlComponents.push(cropSection(manualCrop));
 
-	// Adds the final size parameter
-	let finalSize = ''
-	if (flipHorizontal) {
-		// Adds minus to flip horizontally
-		finalSize += '-'
-	}
-	finalSize += width + 'x'
-	if (flipVertical) {
-		// Adds minus to flip vertically
-		finalSize += '-'
-	}
-	finalSize += height
-	urlComponents.push(finalSize)
+  // Add the fit-in parameter after crop if appliable
+  fitIn && urlComponents.push("fit-in");
 
-	// Adds the horizontal alignement after the size
-	urlComponents.push(horizontalAlign)
+  // Adds the final size parameter
+  let finalSize = "";
+  if (flipHorizontal) {
+    // Adds minus to flip horizontally
+    finalSize += "-";
+  }
+  finalSize += width + "x";
+  if (flipVertical) {
+    // Adds minus to flip vertically
+    finalSize += "-";
+  }
+  finalSize += height;
+  urlComponents.push(finalSize);
 
-	// Adds the vertical alignement after the size
-	urlComponents.push(verticalAlign)
+  // Adds the horizontal alignement after the size
+  urlComponents.push(horizontalAlign);
 
-	// Adds the smart parameter if appliable
-	smart && urlComponents.push('smart')
+  // Adds the vertical alignement after the size
+  urlComponents.push(verticalAlign);
 
-	// Compile the filters and add them right before the URI
-	Object.keys(filters).length > 0 && urlComponents.push(filtersURIComponent(filters))
+  // Adds the smart parameter if appliable
+  smart && urlComponents.push("smart");
 
-	// Finally, adds the real image uri
-	urlComponents.push(src)
+  // Compile the filters and add them right before the URI
+  Object.keys(filters).length > 0 &&
+    urlComponents.push(filtersURIComponent(filters));
 
-	const url = urlComponents.join('/')
-	return url
+  // Finally, adds the real image uri
+  urlComponents.push(src);
+
+  const url = urlComponents.join("/");
+  return url;
 }
 
-export { thumborURL }
+export { thumborURL };
