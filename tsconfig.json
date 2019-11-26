@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "outDir": "./build",
+        "declarationDir": "./build",
+        "declaration": true,
+        "noImplicitAny": true,
+        "module": "es2015",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "jsx": "react",
+        "target": "es5"
+    },
+    "include": [
+        "./mobule/**/*",
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
