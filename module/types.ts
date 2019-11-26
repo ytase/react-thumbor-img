@@ -30,9 +30,12 @@ export interface TbImg extends TbImgOperation {
   src: string;
 }
 
+export type SizeSet = { [condition: string]: TbImgOperation };
+
 export interface ThumborImageProps extends Omit<TbImg, "server"> {
   server?: string; // Server is optional because it can be provided by the context
   generateSrcSet?: boolean;
+  sizeSet?: SizeSet;
   alt?: string;
   id?: string;
   className?: string;

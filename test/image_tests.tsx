@@ -56,4 +56,38 @@ describe("thumbor image component", () => {
     assert(negativeNumbers.is("img[width=20]"));
     assert(negativeNumbers.is("img[height=30]"));
   });
+
+  it("should set the srcset with 2x and 3x by default", () => {
+    const wrapper = shallow(
+      <ThumborImage
+        src="/my-image"
+        server="http://localhost"
+        width={20}
+        height={30}
+      />
+    );
+    assert.equal(
+      wrapper.props()["srcSet"],
+      "http://localhost/unsafe/40x60/center/middle/smart//my-image 2x, http://localhost/unsafe/60x90/center/middle/smart//my-image 3x"
+    );
+  });
+
+  it("should set the srcset to the sizeSet when present", () => {
+    const wrapper = shallow(
+      <ThumborImage
+        src="/my-image"
+        server="http://localhost"
+        width={20}
+        height={30}
+        sizeSet={{
+          "450w": { width: 450, height: 500 },
+          "800w": { width: 800, height: 1200 }
+        }}
+      />
+    );
+    assert.equal(
+      wrapper.props()["srcSet"],
+      "http://localhost/unsafe/450x500/center/middle/smart//my-image 450w, http://localhost/unsafe/800x1200/center/middle/smart//my-image 800w"
+    );
+  });
 });
