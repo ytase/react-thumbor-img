@@ -1,7 +1,7 @@
-import { ThumborImageProps } from "./types";
+import { TbImg } from "./types";
 import { thumborURL } from "./urlgenerator";
 
-function generateSrcSet(props: ThumborImageProps) {
+function generateSrcSet(props: TbImg) {
   let srcSet = [];
   for (let i = 2; i <= 3; i++) {
     const input = Object.assign({}, props, {

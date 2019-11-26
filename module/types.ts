@@ -9,23 +9,29 @@ export interface Box {
   right: number;
 }
 
-export interface TbImg {
-  server: string;
-  src: string;
+// Describes the operations operated on a single picture
+export interface TbImgOperation {
   width: number;
   height: number;
-  flipHorizontal: boolean;
-  flipVertical: boolean;
-  trim: boolean;
-  fitIn: boolean;
-  horizontalAlign: "left" | "center" | "right";
-  verticalAlign: "top" | "middle" | "bottom";
-  smart: boolean;
-  filters: FilterDict;
-  manualCrop: Box | false;
+  flipHorizontal?: boolean;
+  flipVertical?: boolean;
+  trim?: boolean;
+  fitIn?: boolean;
+  horizontalAlign?: "left" | "center" | "right";
+  verticalAlign?: "top" | "middle" | "bottom";
+  smart?: boolean;
+  filters?: FilterDict;
+  manualCrop?: Box | false;
 }
 
-export interface ThumborImageProps extends TbImg {
+// Describes a scaled and modified picture
+export interface TbImg extends TbImgOperation {
+  server: string;
+  src: string;
+}
+
+export interface ThumborImageProps extends Omit<TbImg, "server"> {
+  server?: string; // Server is optional because it can be provided by the context
   generateSrcSet?: boolean;
   alt?: string;
   id?: string;

@@ -28,61 +28,48 @@ function filtersURIComponent(filters: FilterDict) {
   return elements.join(":");
 }
 
-function thumborURL({
-  server,
-  src,
-  width,
-  height,
-  flipHorizontal,
-  flipVertical,
-  trim,
-  fitIn,
-  horizontalAlign,
-  verticalAlign,
-  smart,
-  filters,
-  manualCrop
-}: TbImg) {
-  const urlComponents = [server, "unsafe"];
+function thumborURL(img: TbImg) {
+  const urlComponents = [img.server, "unsafe"];
 
   // Add the trim parameter after unsafe if appliable
-  trim && urlComponents.push("trim");
+  img.trim && urlComponents.push("trim");
 
   // Add the crop parameter if any
-  manualCrop && urlComponents.push(cropSection(manualCrop));
+  img.manualCrop && urlComponents.push(cropSection(img.manualCrop));
 
   // Add the fit-in parameter after crop if appliable
-  fitIn && urlComponents.push("fit-in");
+  img.fitIn && urlComponents.push("fit-in");
 
   // Adds the final size parameter
   let finalSize = "";
-  if (flipHorizontal) {
+  if (img.flipHorizontal) {
     // Adds minus to flip horizontally
     finalSize += "-";
   }
-  finalSize += width + "x";
-  if (flipVertical) {
+  finalSize += img.width + "x";
+  if (img.flipVertical) {
     // Adds minus to flip vertically
     finalSize += "-";
   }
-  finalSize += height;
+  finalSize += img.height;
   urlComponents.push(finalSize);
 
   // Adds the horizontal alignement after the size
-  urlComponents.push(horizontalAlign);
+  urlComponents.push(img.horizontalAlign || "center");
 
   // Adds the vertical alignement after the size
-  urlComponents.push(verticalAlign);
+  urlComponents.push(img.verticalAlign || "middle");
 
   // Adds the smart parameter if appliable
-  smart && urlComponents.push("smart");
+  img.smart && urlComponents.push("smart");
 
   // Compile the filters and add them right before the URI
+  const filters = img.filters || {};
   Object.keys(filters).length > 0 &&
     urlComponents.push(filtersURIComponent(filters));
 
   // Finally, adds the real image uri
-  urlComponents.push(src);
+  urlComponents.push(img.src);
 
   const url = urlComponents.join("/");
   return url;
