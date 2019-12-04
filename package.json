@@ -21,7 +21,7 @@
   "author": "Mikaël Gourlaouen <gourlaouen.mikael@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "mocha -r test/setup.js test/**/*.tsx",
+    "test": "mocha",
     "build": "npm run build:types && npm run build:js",
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "rollup -c",
@@ -44,7 +44,7 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "mocha": "^6.2.2",
     "react": "^16.12.0",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.12.0",
     "rollup": "^1.27.4",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-node-resolve": "^5.2.0",

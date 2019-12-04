@@ -75,4 +75,12 @@ function thumborURL(img: TbImg) {
   return url;
 }
 
-export { thumborURL };
+/**
+ * This one is used for testing and local purposes, so that instead of using a thumbor server it returns
+ * the original URL so that you can test images in development
+ */
+function dummyURL(img: TbImg): string {
+  return img.src;
+}
+
+export { thumborURL, dummyURL };

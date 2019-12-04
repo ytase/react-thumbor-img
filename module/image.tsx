@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { ThumborContext } from "./thumborcontext";
-import { thumborURL } from "./urlgenerator";
+import { thumborURL, dummyURL } from "./urlgenerator";
 import { ThumborImageProps, TbImg, SizeSet } from "./types";
 
 function ThumborImage({
@@ -11,13 +11,35 @@ function ThumborImage({
   alt,
   imgProps,
   sizeSet,
+  src,
   ...ImgGen
 }: ThumborImageProps) {
   const finalProps = Object.assign({ id, className, style, alt }, imgProps);
 
+  const settings = useContext(ThumborContext);
+
+  let URLGenerator = thumborURL;
+
+  // An image path is relative if it start with only one slash
+  if (/^\/[\w\d]/.test(src)) {
+    switch (settings.relativeImgPolicy.name) {
+      case "error":
+        throw "Relative images are not acceptable";
+
+      case "passThrough":
+        URLGenerator = dummyURL;
+        break;
+
+      case "prependOrigin":
+        src = settings.relativeImgPolicy.origin + src;
+        break;
+    }
+  }
+
   const ImageGeneration: TbImg = {
     ...ImgGen,
-    server: ImgGen.server || useContext(ThumborContext)
+    server: ImgGen.server || settings.server,
+    src
   };
   if (!ImgGen.server) {
     throw "A server must be provided either in props or in context";
@@ -41,7 +63,7 @@ function ThumborImage({
   if (finalSizeSet) {
     finalProps.srcSet = Object.entries(finalSizeSet)
       .map(([condition, operation]) => {
-        const img = thumborURL({ ...ImageGeneration, ...operation });
+        const img = URLGenerator({ ...ImageGeneration, ...operation });
         return img + " " + condition;
       })
       .join(", ");
@@ -56,7 +78,7 @@ function ThumborImage({
   if (imgHeight > 1) {
     finalProps.height = imgHeight;
   }
-  return <img src={thumborURL(ImageGeneration)} {...finalProps} />;
+  return <img src={URLGenerator(ImageGeneration)} {...finalProps} />;
 }
 
 ThumborImage.defaultProps = {
