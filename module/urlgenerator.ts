@@ -1,5 +1,8 @@
 import { Box, FilterDict, TbImg } from "./types";
 
+const HmacSHA1 = require("crypto-js/hmac-sha1");
+const Base64 = require("crypto-js/enc-base64");
+
 function cropSection(c: Box) {
   return `${c.left}x${c.top}:${c.right}x${c.bottom}`;
 }
@@ -28,8 +31,25 @@ function filtersURIComponent(filters: FilterDict) {
   return elements.join(":");
 }
 
+function calculateSecureString(operation: string, securityKey?: string): string {
+  if (!securityKey) {
+    return 'unsafe';
+  }
+
+  const cryptoKey = HmacSHA1(
+      operation,
+      securityKey
+  );
+
+  const secureString = Base64.stringify(cryptoKey)
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_');
+
+  return secureString;
+}
+
 function thumborURL(img: TbImg) {
-  const urlComponents = [img.server, "unsafe"];
+  const urlComponents = [];
 
   // Add the trim parameter after unsafe if appliable
   img.trim && urlComponents.push("trim");
@@ -71,8 +91,10 @@ function thumborURL(img: TbImg) {
   // Finally, adds the real image uri
   urlComponents.push(img.src);
 
-  const url = urlComponents.join("/");
-  return url;
+  const urlPath = urlComponents.join("/");
+  const signature = calculateSecureString(urlPath, img.securityKey)
+
+  return `${img.server}/${signature}/${urlPath}`;
 }
 
 /**

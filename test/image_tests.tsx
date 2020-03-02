@@ -101,6 +101,20 @@ describe("thumbor image component", () => {
       "http://localhost/unsafe/450x500/center/middle/smart/http://img/my-image 450w, http://localhost/unsafe/800x1200/center/middle/smart/http://img/my-image 800w"
     );
   });
+
+  it("should add an encoded signature to the url", () => {
+    const wrapper = shallow(
+      <ThumborImage
+        src="http://img/my-image"
+        server="http://localhost"
+        securityKey={"1234"}
+      />
+    );
+    assert.equal(
+      wrapper.props()["srcSet"],
+      "http://localhost/O8SO3WTHoQ2l5hr4a37En549hO8=/0x0/center/middle/smart/http://img/my-image 2x, http://localhost/O8SO3WTHoQ2l5hr4a37En549hO8=/0x0/center/middle/smart/http://img/my-image 3x"
+    );
+  });
 });
 
 describe("Relative URL modes", () => {

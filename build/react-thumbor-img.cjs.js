@@ -171,6 +171,10 @@ function ThumborConfiguration(props) {
   }, children);
 }
 
+var HmacSHA1 = require("crypto-js/hmac-sha1");
+
+var Base64 = require("crypto-js/enc-base64");
+
 function cropSection(c) {
   return "".concat(c.left, "x").concat(c.top, ":").concat(c.right, "x").concat(c.bottom);
 }
@@ -201,8 +205,18 @@ function filtersURIComponent(filters) {
   return elements.join(":");
 }
 
+function calculateSecureString(operation, securityKey) {
+  if (!securityKey) {
+    return 'unsafe';
+  }
+
+  var cryptoKey = HmacSHA1(operation, securityKey);
+  var secureString = Base64.stringify(cryptoKey).replace(/\+/g, '-').replace(/\//g, '_');
+  return secureString;
+}
+
 function thumborURL(img) {
-  var urlComponents = [img.server, "unsafe"]; // Add the trim parameter after unsafe if appliable
+  var urlComponents = []; // Add the trim parameter after unsafe if appliable
 
   img.trim && urlComponents.push("trim"); // Add the crop parameter if any
 
@@ -237,8 +251,9 @@ function thumborURL(img) {
   Object.keys(filters).length > 0 && urlComponents.push(filtersURIComponent(filters)); // Finally, adds the real image uri
 
   urlComponents.push(img.src);
-  var url = urlComponents.join("/");
-  return url;
+  var urlPath = urlComponents.join("/");
+  var signature = calculateSecureString(urlPath, img.securityKey);
+  return "".concat(img.server, "/").concat(signature, "/").concat(urlPath);
 }
 /**
  * This one is used for testing and local purposes, so that instead of using a thumbor server it returns
@@ -352,7 +367,8 @@ ThumborImage.defaultProps = {
   verticalAlign: "middle",
   smart: true,
   filters: {},
-  generateSrcSet: true
+  generateSrcSet: true,
+  securityKey: ''
 };
 
 exports.ThumborConfiguration = ThumborConfiguration;

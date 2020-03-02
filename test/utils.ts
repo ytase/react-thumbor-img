@@ -14,7 +14,8 @@ const basicInput: TbImg = {
   verticalAlign: "middle",
   smart: false,
   filters: {},
-  manualCrop: false
+  manualCrop: false,
+  securityKey: '1234'
 };
 
 function addParams(params: Partial<TbImg>): TbImg {

@@ -28,6 +28,7 @@ export interface TbImgOperation {
 export interface TbImg extends TbImgOperation {
   server: string;
   src: string;
+  securityKey?: string;
 }
 
 export type SizeSet = { [condition: string]: TbImgOperation };

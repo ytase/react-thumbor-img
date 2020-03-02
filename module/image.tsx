@@ -96,7 +96,8 @@ ThumborImage.defaultProps = {
   verticalAlign: "middle",
   smart: true,
   filters: {},
-  generateSrcSet: true
+  generateSrcSet: true,
+  securityKey: ''
 };
 
 export { ThumborImage };

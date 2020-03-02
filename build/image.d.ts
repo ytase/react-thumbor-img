@@ -18,6 +18,7 @@ declare namespace ThumborImage {
         smart: boolean;
         filters: {};
         generateSrcSet: boolean;
+        securityKey: string;
     };
 }
 export { ThumborImage };
