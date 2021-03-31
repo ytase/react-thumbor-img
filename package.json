@@ -5,7 +5,7 @@
     "thumbor",
     "image"
   ],
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "A React Component that generates images with valid Thumbor URLs for you.",
   "main": "build/react-thumbor-img.cjs.js",
   "module": "build/react-thumbor-img.js",
