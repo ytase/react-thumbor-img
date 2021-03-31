@@ -106,13 +106,8 @@ describe("thumbor image component", () => {
 describe("Relative URL modes", () => {
   function wrapPolicy(policy: RelativeImgPolicy) {
     return render(
-      <ThumborConfiguration relativeImgPolicy={policy}>
-        <ThumborImage
-          src="/img/my_pic.jpg"
-          server="http://thumbor"
-          height={200}
-          width={300}
-        />
+      <ThumborConfiguration relativeImgPolicy={policy} server="http://thumbor">
+        <ThumborImage src="/img/my_pic.jpg" height={200} width={300} />
       </ThumborConfiguration>
     );
   }

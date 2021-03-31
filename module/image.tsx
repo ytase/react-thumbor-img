@@ -41,7 +41,7 @@ function ThumborImage({
     server: ImgGen.server || settings.server,
     src
   };
-  if (!ImgGen.server) {
+  if (!ImageGeneration.server) {
     throw "A server must be provided either in props or in context";
   }
 
