@@ -9,6 +9,7 @@
   "description": "A React Component that generates images with valid Thumbor URLs for you.",
   "main": "build/react-thumbor-img.cjs.js",
   "module": "build/react-thumbor-img.js",
+  "types": "./build/index.d.ts",
   "repository": "ytase/react-thumbor-img",
   "bugs": {
     "url": "https://github.com/ytase/react-thumbor-img/issues"
