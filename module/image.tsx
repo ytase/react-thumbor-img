@@ -24,7 +24,7 @@ function ThumborImage({
   if (/^\/[\w\d]/.test(src)) {
     switch (settings.relativeImgPolicy.name) {
       case "error":
-        throw "Relative images are not acceptable";
+        throw new Error("Relative images are not acceptable");
 
       case "passThrough":
         URLGenerator = dummyURL;
@@ -39,7 +39,7 @@ function ThumborImage({
   const ImageGeneration: TbImg = {
     ...ImgGen,
     server: ImgGen.server || settings.server,
-    src
+    src,
   };
   if (!ImageGeneration.server) {
     throw "A server must be provided either in props or in context";
@@ -51,12 +51,12 @@ function ThumborImage({
     finalSizeSet = {
       "2x": {
         width: ImageGeneration.width * 2,
-        height: ImageGeneration.height * 2
+        height: ImageGeneration.height * 2,
       },
       "3x": {
         width: ImageGeneration.width * 3,
-        height: ImageGeneration.height * 3
-      }
+        height: ImageGeneration.height * 3,
+      },
     };
   }
 
@@ -96,7 +96,7 @@ ThumborImage.defaultProps = {
   verticalAlign: "middle",
   smart: true,
   filters: {},
-  generateSrcSet: true
+  generateSrcSet: true,
 };
 
 export { ThumborImage };
